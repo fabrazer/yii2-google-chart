@@ -106,13 +106,13 @@ class GoogleChart extends Widget
 		$jsDataScript = null;
 
 		if($this->data) {
-			$jsDataScript = 'google.visualization.arrayToDataTable(\'' . Json::encode($this->data) . '\');';
+			$jsDataScript = 'google.visualization.arrayToDataTable(' . Json::encode($this->data) . ');';
 		} else {
-			$jsDataScript = 'google.visualization.DataTable($.ajax({
+			$jsDataScript = 'google.visualization.arrayToDataTable(JSON.parse($.ajax({
 				url: \'' . $this->url . '\',
 				dataType: "json",
 				async: false
-				}).responseText;
+				}).responseText)
 			);';
 		}
         $jsOptions = Json::encode($this->options);
@@ -134,7 +134,7 @@ class GoogleChart extends Widget
         $view = $this->getView();
         $view->registerJsFile('https://www.google.com/jsapi',['position' => View::POS_HEAD]);
         $view->registerJs('google.load("visualization", "' . $this->loadVersion . '", {packages:["' . $this->packages . '"]});', View::POS_HEAD, __CLASS__ . '#' . $id);
-        $view->registerJs($script, View::POS_HEAD, $id);
+        $view->registerJs($script, View::POS_END, $id);
     }
 
 }
