@@ -10,13 +10,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require scotthuangzl/yii2-google-chart "dev-master"
+php composer.phar require fabrazer/yii2-google-chart "dev-master"
 ```
 
 or add
 
 ```
-"scotthuangzl/yii2-google-chart": "dev-master"
+"fabrazer/yii2-google-chart": "dev-master"
 ```
 
 to the require section of your `composer.json` file.
@@ -35,7 +35,7 @@ You also can refer to https://developers.google.com/chart/interactive/docs/quick
 
     <div class="col-sm-5">
             <?php
-            use scotthuangzl\googlechart\GoogleChart;
+            use fabrazer\googlechart\GoogleChart;
     
             echo GoogleChart::widget(array('visualization' => 'PieChart',
                 'data' => array(
