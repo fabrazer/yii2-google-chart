@@ -1,5 +1,5 @@
 {
-    "name": "scotthuangzl/yii2-google-chart",
+    "name": "fabrazer/yii2-google-chart",
     "description": "A wraper for google chart",
     "type": "yii2-extension",
     "keywords": ["scott huang","hzl","yii2","extension","google chart","widget"],
@@ -8,11 +8,15 @@
         {
             "name": "Scott Huang",
             "email": "zhiliang.huang@gmail.com"
+        },
+        {
+            "name": "Fabriece Knedel",
+            "email": "fk@visoma.de"
         }
     ],
   "support": {
-    "issues": "https://github.com/ScottHuangZL/yii2-google-chart/issues",
-    "source": "https://github.com/ScottHuangZL/yii2-google-chart"
+    "issues": "https://github.com/fabrazer/yii2-google-chart/issues",
+    "source": "https://github.com/fabrazer/yii2-google-chart"
   },
     "minimum-stability": "dev",
     "require": {
@@ -20,7 +24,7 @@
     },
     "autoload": {
         "psr-4": {
-            "scotthuangzl\\googlechart\\": ""
+            "fabrazer\\googlechart\\": ""
         }
     }
 }
