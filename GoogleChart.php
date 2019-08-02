@@ -1,6 +1,6 @@
 <?php
 
-namespace scotthuangzl\googlechart;
+namespace fabrazer\googlechart;
 
 use yii\base\Widget;
 use yii\helpers\Html;
@@ -14,7 +14,7 @@ use yii\web\View;
  * An widget to wrap google chart for Yii Framework 2
  * by Scott Huang
  *
- * @see https://github.com/ScottHuangZL/yii2-google-chart
+ * @see https://github.com/fabrazer/yii2-google-chart
  * @author Scott Huang <zhiliang.huang@gmail.com>
  * @since 0.2
  * @Xiamen China
@@ -45,7 +45,15 @@ class GoogleChart extends Widget
      * @var array $data the data to configure visualization
      * @see https://google-developers.appspot.com/chart/interactive/docs/datatables_dataviews#arraytodatatable
      */
-    public $data = array();
+	public $data = array();
+	
+	/**
+	 * Url for AJAX request
+	 *
+	 * @var string
+	 * @see https://developers.google.com/chart/interactive/docs/php_example
+	 */
+	public $url = null;
 
     /**
      * @var array $options additional configuration options
@@ -91,15 +99,29 @@ class GoogleChart extends Widget
      */
     public function registerClientScript($id)
     {
+		if($this->data && $this->url) {
+			throw new \Exception('Use $data XOR $url.');
+		}
 
-        $jsData = Json::encode($this->data);
+		$jsDataScript = null;
+
+		if($this->data) {
+			$jsDataScript = 'google.visualization.arrayToDataTable(\'' . Json::encode($this->data) . '\');';
+		} else {
+			$jsDataScript = 'google.visualization.DataTable($.ajax({
+				url: \'' . $this->url . '\',
+				dataType: "json",
+				async: false
+				}).responseText;
+			);';
+		}
         $jsOptions = Json::encode($this->options);
 
         $script = '
 			google.setOnLoadCallback(drawChart' . $id . ');
 			var ' . $id . '=null;
 			function drawChart' . $id . '() {
-				var data = google.visualization.arrayToDataTable(' . $jsData . ');
+				var data = ' . $jsDataScript . '
 
 				' . $this->scriptAfterArrayToDataTable . '
 
